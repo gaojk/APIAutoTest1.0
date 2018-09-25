@@ -20,8 +20,8 @@
                     <td><input type="text" id="txtname" name="login_username" /></td>
                 </tr>
                 <tr>
-                    <td><label for="txtpswd">密码：</label></td>
-                    <td><input type="password" id="txtpswd" name="login_pswd" /></td>
+                    <td><label for="txtpwd">密码：</label></td>
+                    <td><input type="password" id="txtpwd" name="login_pwd" /></td>
                 </tr>
                 <tr>
                     <td colspan=2>
