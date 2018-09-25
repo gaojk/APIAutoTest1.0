@@ -135,4 +135,10 @@
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where sysno = #{sysno,jdbcType=BIGINT}
   </update>
+  <select id="selectByNameAndPwd" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from user
+    where login_name = #{loginname,jdbcType=VARCHAR} and login_password = #{loginpassword,jdbcType=VARCHAR}
+  </select>
 </mapper>
