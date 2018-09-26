@@ -33,9 +33,9 @@ public class UserController {
         String login_pwd = request.getParameter("login_pwd");
         if (userService.UserLogin(login_username, login_pwd) != null){
             //request.getSession().setAttribute("", );
-            request.getRequestDispatcher("/WEB-INF/view/domain.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/views/domain.jsp").forward(request, response);
         }else
-            request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/views/domain.jsp").forward(request, response);
 
     }
 
