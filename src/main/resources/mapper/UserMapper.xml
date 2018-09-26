@@ -139,6 +139,6 @@
     select
     <include refid="Base_Column_List" />
     from user
-    where login_name = #{loginname,jdbcType=VARCHAR} and login_password = #{loginpassword,jdbcType=VARCHAR}
+    where login_name = #{loginName,jdbcType=VARCHAR} and login_password = #{loginPassword,jdbcType=VARCHAR}
   </select>
 </mapper>

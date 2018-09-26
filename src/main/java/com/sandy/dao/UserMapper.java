@@ -1,6 +1,7 @@
 package com.sandy.dao;
 
 import com.sandy.domain.User;
+import org.apache.ibatis.annotations.Param;
 
 public interface UserMapper {
 
@@ -16,5 +17,5 @@ public interface UserMapper {
 
     int updateByPrimaryKey(User record);
 
-    User selectByNameAndPwd(String loginname, String loginpassword);
+    User selectByNameAndPwd(@Param("loginName") String loginName, @Param("loginPassword") String loginPassword);
 }
