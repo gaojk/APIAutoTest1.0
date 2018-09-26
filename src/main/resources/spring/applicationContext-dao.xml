@@ -8,7 +8,7 @@
     <context:property-placeholder location="classpath:props/jdbc.properties"/>
 
     <!-- 配置数据源 ，dbcp -->
-    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="${mysql.driver}"/>
         <property name="url" value="${mysql.url}"/>
         <property name="username" value="${mysql.user}"/>

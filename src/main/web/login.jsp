@@ -13,7 +13,7 @@
 <body>
 <div class="Verticalcenter">
     <div class="Horizontalcenter">
-        <form action="business" method="post">
+        <form action="/user/login" method="post">
             <table>
                 <tr>
                     <td><label for="txtname">账号：</label></td>

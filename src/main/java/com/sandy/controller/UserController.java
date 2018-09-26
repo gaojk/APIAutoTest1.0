@@ -1,9 +1,12 @@
 package com.sandy.controller;
 
 import com.sandy.service.UserService;
+import com.sandy.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,12 +21,13 @@ import java.io.IOException;
  */
 
 @Controller
-@RequestMapping(value = "/login.jsp")
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
+    @RequestMapping(value ="/login", method = RequestMethod.POST)
     public void UserLoginController(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
         String login_username = request.getParameter("login_username");
         String login_pwd = request.getParameter("login_pwd");
