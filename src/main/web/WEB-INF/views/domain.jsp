@@ -11,6 +11,6 @@
     <title>业务列表</title>
 </head>
 <body>
-
+    <h2>${domain}</h2>
 </body>
 </html>
