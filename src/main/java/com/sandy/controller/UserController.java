@@ -26,6 +26,7 @@ public class UserController {
     @RequestMapping(value ="/login", method = RequestMethod.POST)
     public String UserLoginController(@RequestParam(value = "login_username")String login_username, @RequestParam(value = "login_pwd")String login_pwd, ModelMap modelMap)
     {
+        //校验登录信息
         if (userService.UserLogin(login_username, login_pwd) != null){
             modelMap.addAttribute("domain","集采，商城，收验货");
             return "domain";
