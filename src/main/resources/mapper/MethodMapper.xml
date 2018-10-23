@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sandy.dao.MethodMapper" >
+  <resultMap id="BaseResultMap" type="com.sandy.domain.Method" >
+    <id column="sysno" property="sysno" jdbcType="BIGINT" />
+    <result column="resource_sysno" property="resourceSysno" jdbcType="BIGINT" />
+    <result column="method_name" property="methodName" jdbcType="VARCHAR" />
+    <result column="method_params" property="methodParams" jdbcType="VARCHAR" />
+    <result column="method_desc" property="methodDesc" jdbcType="VARCHAR" />
+    <result column="edit_time" property="editTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    sysno, resource_sysno, method_name, method_params, method_desc, edit_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from methods
+    where sysno = #{sysno,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from methods
+    where sysno = #{sysno,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.sandy.domain.Method" >
+    insert into methods (sysno, resource_sysno, method_name, 
+      method_params, method_desc, edit_time
+      )
+    values (#{sysno,jdbcType=BIGINT}, #{resourceSysno,jdbcType=BIGINT}, #{methodName,jdbcType=VARCHAR}, 
+      #{methodParams,jdbcType=VARCHAR}, #{methodDesc,jdbcType=VARCHAR}, #{editTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sandy.domain.Method" >
+    insert into methods
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sysno != null" >
+        sysno,
+      </if>
+      <if test="resourceSysno != null" >
+        resource_sysno,
+      </if>
+      <if test="methodName != null" >
+        method_name,
+      </if>
+      <if test="methodParams != null" >
+        method_params,
+      </if>
+      <if test="methodDesc != null" >
+        method_desc,
+      </if>
+      <if test="editTime != null" >
+        edit_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sysno != null" >
+        #{sysno,jdbcType=BIGINT},
+      </if>
+      <if test="resourceSysno != null" >
+        #{resourceSysno,jdbcType=BIGINT},
+      </if>
+      <if test="methodName != null" >
+        #{methodName,jdbcType=VARCHAR},
+      </if>
+      <if test="methodParams != null" >
+        #{methodParams,jdbcType=VARCHAR},
+      </if>
+      <if test="methodDesc != null" >
+        #{methodDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="editTime != null" >
+        #{editTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sandy.domain.Method" >
+    update methods
+    <set >
+      <if test="resourceSysno != null" >
+        resource_sysno = #{resourceSysno,jdbcType=BIGINT},
+      </if>
+      <if test="methodName != null" >
+        method_name = #{methodName,jdbcType=VARCHAR},
+      </if>
+      <if test="methodParams != null" >
+        method_params = #{methodParams,jdbcType=VARCHAR},
+      </if>
+      <if test="methodDesc != null" >
+        method_desc = #{methodDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="editTime != null" >
+        edit_time = #{editTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where sysno = #{sysno,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sandy.domain.Method" >
+    update methods
+    set resource_sysno = #{resourceSysno,jdbcType=BIGINT},
+      method_name = #{methodName,jdbcType=VARCHAR},
+      method_params = #{methodParams,jdbcType=VARCHAR},
+      method_desc = #{methodDesc,jdbcType=VARCHAR},
+      edit_time = #{editTime,jdbcType=TIMESTAMP}
+    where sysno = #{sysno,jdbcType=BIGINT}
+  </update>
+  <select id="selectMethodByRoesourceId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from methods
+    where resource_sysno =  #{resourceSysno,jdbcType=BIGINT}
+  </select>
+</mapper>
