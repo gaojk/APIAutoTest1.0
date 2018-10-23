@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>业务列表</title>
+    <title>方法列表</title>
 </head>
 <body>
     <div>

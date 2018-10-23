@@ -28,13 +28,6 @@
                         <input type="submit" value="登录" style="left: 50%"/>
                     </td>
                 </tr>
-                <!--
-                <tr>
-                    <td colspan=2>
-                        <a href="/AnalyzeUserBehavior/register?method=getView">请注册</a>
-                    </td>
-                </tr>
-                -->
             </table>
         </form>
     </div>

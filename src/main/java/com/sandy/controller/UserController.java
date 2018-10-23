@@ -29,10 +29,9 @@ public class UserController {
         //校验登录信息
         if (userService.UserLogin(login_username, login_pwd) != null){
             modelMap.addAttribute("domain","集采，商城，收验货");
-            return "domain";
+            return "methodslist";
         }else
             return "login";
-
     }
 
 }
