@@ -1,5 +1,6 @@
 package com.sandy.controller;
 
+import com.sandy.domain.User;
 import com.sandy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,13 +25,16 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping(value ="/login", method = RequestMethod.POST)
-    public String UserLoginController(@RequestParam(value = "login_username")String login_username, @RequestParam(value = "login_pwd")String login_pwd, ModelMap modelMap)
+    public String UserLoginController(@RequestParam(value = "login_username")String login_username,
+                                      @RequestParam(value = "login_pwd")String login_pwd, ModelMap modelMap)
     {
         //校验登录信息
-        if (userService.UserLogin(login_username, login_pwd) != null){
-            modelMap.addAttribute("domain","集采，商城，收验货");
-            return "methodslist";
-        }else
+        User user = userService.UserLogin(login_username, login_pwd);
+        if (user != null){
+            modelMap.addAttribute("user",user);
+            return "resourcelist";
+        }
+        else
             return "login";
     }
 

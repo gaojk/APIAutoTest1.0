@@ -39,25 +39,15 @@
     a:visited {color:gray;text-decoration:none;}
     a:hover {color: red; text-decoration:underline;}
 </style>
-<%--<script type="application/javascript">--%>
-
-    <%--$(function(){--%>
-        <%--$('a').on('click',function(){--%>
-            <%--//事件处理程序--%>
-            <%--alert($(this).attr("id"))--%>
-        <%--});--%>
-    <%--});--%>
-<%--</script>--%>
 <html>
 <head>
     <title>方法列表</title>
 </head>
 <body>
-    <div id="demo">
-        <%--<h2>${domain}</h2>--%>
+    <div id="resource">
             <c:choose>
-                <c:when test="${empty sessionScope.user.resourceList  || fn:length(sessionScope.user.resourceList) == 0}">
-                    项目列表为空！！！
+                <c:when test="${empty sessionScope.user.resourceList || fn:length(sessionScope.user.resourceList) == 0}">
+                    该用户无可用业务域。
                 </c:when>
                 <c:otherwise>
                     <p>

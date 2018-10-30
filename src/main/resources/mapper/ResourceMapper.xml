@@ -85,4 +85,20 @@
     from  role_resource
     where role_sysno = #{roleSysno,jdbcType=BIGINT}
   </select>
+  <select id="selectResourceByUserId" resultMap="BaseResultMap">
+    SELECT
+	  resource.*
+    FROM
+	 USER,
+	 user_role,
+	 role,
+	 role_resource,
+	 resource
+    WHERE
+	  USER .sysno = user_role.user_sysno
+      AND user_role.role_sysno = role.sysno
+      AND role.sysno = role_resource.role_sysno
+      AND role_resource.resource_sysno = resource.sysno
+      AND USER .sysno  = #{roleSysno,jdbcType=BIGINT}
+  </select>
 </mapper>

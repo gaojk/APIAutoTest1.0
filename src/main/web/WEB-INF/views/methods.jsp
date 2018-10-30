@@ -146,7 +146,6 @@
             </c:when>
             <c:otherwise>
                     <c:forEach items="${requestScope.methods}" var="item">
-                         <%--<a href="/resource/get_methods_by_id?resourceId=${item.sysno}"> ${item.name}</a><br>--%>
                         <tr>
                             <td><input type="checkbox" name="choicemethod" value="${item.sysno}@@${item.methodParams}"></td>
                             <td>${item.methodName}</td>
