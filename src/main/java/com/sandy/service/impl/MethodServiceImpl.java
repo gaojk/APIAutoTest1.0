@@ -1,7 +1,6 @@
 package com.sandy.service.impl;
 
 import com.sandy.dao.MethodMapper;
-import com.sandy.domain.Method;
 import com.sandy.service.MethodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,8 +22,8 @@ public class MethodServiceImpl implements MethodService {
     private MethodMapper methodMapper;
 
     @Override
-    public List<Method> getMethodsByResourceId(Long resourceId){
-         List<Method> methodList = methodMapper.selectMethodByRoesourceId(resourceId);
+    public List<Methodu> getMethodsByResourceId(Long resourceId){
+         List<Methodu> methodList = methodMapper.selectMethodByRoesourceId(resourceId);
          return methodList;
     }
 

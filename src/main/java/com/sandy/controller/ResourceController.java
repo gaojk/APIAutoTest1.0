@@ -1,6 +1,5 @@
 package com.sandy.controller;
 
-import com.sandy.domain.Method;
 import com.sandy.service.MethodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,7 +28,7 @@ public class ResourceController {
 
     @RequestMapping(value="/get_methods_by_id",method = RequestMethod.GET)
     public String getMethodByResourceId(@RequestParam(value = "resourceId")Long resourceId, ModelMap modelMap){
-        List<Method> methodList = methodService.getMethodsByResourceId(resourceId);
+        List<Methodu> methodList = methodService.getMethodsByResourceId(resourceId);
         modelMap.addAttribute("methods",methodList);
         return "methods";
     }
