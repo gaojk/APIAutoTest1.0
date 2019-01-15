@@ -39,20 +39,24 @@
     a:visited {color:gray;text-decoration:none;}
     a:hover {color: red; text-decoration:underline;}
 </style>
-<%--<script type="application/javascript">--%>
-
-    <%--$(function(){--%>
-        <%--$('a').on('click',function(){--%>
-            <%--//事件处理程序--%>
-            <%--alert($(this).attr("id"))--%>
-        <%--});--%>
-    <%--});--%>
-<%--</script>--%>
-<html>
+<html lang="zh_CN" class="html-">
 <head>
-    <title>用例列表</title>
+    <title>业务域</title>
 </head>
 <body>
-
+    <div id="resource">
+            <c:choose>
+                <c:when test="${empty sessionScope.user.domainList || fn:length(sessionScope.user.domainList) == 0}">
+                    该用户无可用业务域。
+                </c:when>
+                <c:otherwise>
+                    <p>
+                        <c:forEach items="${sessionScope.user.domainList}" var="item">
+                            <a href="/resource/get_methods_by_id?domainId=${item.sysno}"> ${item.desc}</a><br>
+                        </c:forEach>
+                    </p>
+                </c:otherwise>
+            </c:choose>
+    </div>
 </body>
 </html>

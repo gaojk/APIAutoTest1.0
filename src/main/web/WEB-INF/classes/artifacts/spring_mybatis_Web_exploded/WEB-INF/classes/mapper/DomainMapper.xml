@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sandy.dao.DomainMapper" >
+  <resultMap id="BaseResultMap" type="com.sandy.domain.Domain" >
+    <id column="sysno" property="sysno" jdbcType="BIGINT" />
+    <result column="desc" property="desc" jdbcType="VARCHAR" />
+    <result column="edit_time" property="editTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    sysno, desc, edit_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from domain
+    where sysno = #{sysno,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from domain
+    where sysno = #{sysno,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.sandy.domain.Domain" >
+    insert into domain (sysno, desc, edit_time
+      )
+    values (#{sysno,jdbcType=BIGINT}, #{desc,jdbcType=VARCHAR}, #{editTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sandy.domain.Domain" >
+    insert into domain
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sysno != null" >
+        sysno,
+      </if>
+      <if test="desc != null" >
+        desc,
+      </if>
+      <if test="editTime != null" >
+        edit_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sysno != null" >
+        #{sysno,jdbcType=BIGINT},
+      </if>
+      <if test="desc != null" >
+        #{desc,jdbcType=VARCHAR},
+      </if>
+      <if test="editTime != null" >
+        #{editTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sandy.domain.Domain" >
+
+    update domain
+    <set >
+      <if test="desc != null" >
+        desc = #{desc,jdbcType=VARCHAR},
+      </if>
+      <if test="editTime != null" >
+        edit_time = #{editTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where sysno = #{sysno,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sandy.domain.Domain" >
+
+    update domain
+    set desc = #{desc,jdbcType=VARCHAR},
+      edit_time = #{editTime,jdbcType=TIMESTAMP}
+    where sysno = #{sysno,jdbcType=BIGINT}
+  </update>
+  <select id="selectDomainByUserId" parameterType="java.lang.Long" resultMap ="BaseResultMap">
+    select
+    domain_sysno
+    from role_domain
+    inner join role on role_domain.role_sysno = role.sysno
+    inner join user_role on user_role.role_sysno = role.sysno
+    where user_role.user_sysno = #{userId,jdbcType=BIGINT}
+  </select>
+
+</mapper>

@@ -8,3 +8,5 @@ target/
 .idea/
 *.iml
 gen
+/src/main/web/WEB-INF/classes/:
+/src/main/web/WEB-INF/lib/:

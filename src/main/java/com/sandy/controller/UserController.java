@@ -34,7 +34,7 @@ public class UserController {
         User user = userService.UserLogin(login_username, login_pwd);
         if (user != null){
             modelMap.addAttribute("user",user);
-            return "resourcelist";
+            return "domainlist";
         }
         else
             return "login";

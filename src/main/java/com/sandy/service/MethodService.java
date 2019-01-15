@@ -1,5 +1,7 @@
 package com.sandy.service;
 
+import com.sandy.domain.Method;
+
 import java.util.List;
 
 /**
@@ -12,6 +14,6 @@ import java.util.List;
 
 public interface MethodService {
 
-    List<Methodu> getMethodsByResourceId(Long resourceId);
+    List<Method> getMethodsByDomainId(Long domainId);
 
 }
