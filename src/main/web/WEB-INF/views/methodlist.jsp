@@ -40,7 +40,9 @@
                         <tr>
                             <td><input type="checkbox" name="selectmethod" value="${item.sysno}"></td>
                             <td>${item.method}</td>
-                            <td>${requestScope.testcases[item.sysno][content]}</td>
+                            <c:forEach items="${requestScope.testcases['${item.sysno}']}" var="case">
+                                <td>${case.content}</td>
+                            </c:forEach>
                             <td colspan="4"><button class="blue" type="submit">保存</button></td>
                             <td colspan="4"><button class="blue" type="submit">运行</button></td>
                             <td colspan="2"><textarea rows="3" cols="20">运行结果</textarea></td>
