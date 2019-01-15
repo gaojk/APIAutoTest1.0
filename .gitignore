@@ -7,6 +7,9 @@ out/
 target/
 .idea/
 *.iml
+*.log
+*.class
 gen
 /src/main/web/WEB-INF/classes/:
 /src/main/web/WEB-INF/lib/:
+classes/*
