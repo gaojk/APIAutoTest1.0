@@ -17,4 +17,6 @@ import java.util.Map;
 public interface CaseService {
 
     Map<Long, List<Testcase>> getCaseByMethodId(List<Method> methodList);
+
+    List<Testcase> getCaseByMethodId(Long methodId);
 }

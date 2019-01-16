@@ -28,4 +28,11 @@ public class MethodServiceImpl implements MethodService {
          return methodList;
     }
 
+    @Override
+    public Method getMethodsByMethodId(Long methodId){
+        Method method = methodMapper.selectByPrimaryKey(methodId);
+        return method;
+    }
+
+
 }

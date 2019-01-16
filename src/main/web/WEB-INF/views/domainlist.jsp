@@ -52,7 +52,7 @@
                 <c:otherwise>
                     <p>
                         <c:forEach items="${sessionScope.user.domainList}" var="item">
-                            <a href="/resource/get_methods_by_id?domainId=${item.sysno}"> ${item.desc}</a><br>
+                            <a href="/domain/get_methods_by_id?domainId=${item.sysno}"> ${item.desc}</a><br>
                         </c:forEach>
                     </p>
                 </c:otherwise>

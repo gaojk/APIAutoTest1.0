@@ -42,4 +42,12 @@ public class CaseServiceImpl implements CaseService {
     }
 
 
+    @Override
+    public List<Testcase> getCaseByMethodId(Long methodId){
+
+        List<Testcase> testcases = testcaseMapper.selectCaseByMethodId(methodId);
+
+        return testcases;
+    }
+
 }

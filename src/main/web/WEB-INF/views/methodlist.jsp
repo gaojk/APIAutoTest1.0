@@ -7,7 +7,7 @@
 <head>
 </head>
 <body>
-<form  action="/method/excute_methods" method="post">
+<form  action="/method/operate_methods" method="post">
     <table>
         <tr>
             <td><label>环境：</label></td>
@@ -36,22 +36,23 @@
                 方法列表为空！！！
             </c:when>
             <c:otherwise>
-                    <c:forEach items="${requestScope.methods}" var="item">
+                    <c:forEach items="${requestScope.methods}" var="item1">
                         <tr>
-                            <td><input type="checkbox" name="selectmethod" value="${item.sysno}"></td>
-                            <td>${item.method}</td>
-                            <c:forEach items="${requestScope.testcases['${item.sysno}']}" var="case">
-                                <td>${case.content}</td>
-                            </c:forEach>
-                            <td colspan="4"><button class="blue" type="submit">保存</button></td>
-                            <td colspan="4"><button class="blue" type="submit">运行</button></td>
-                            <td colspan="2"><textarea rows="3" cols="20">运行结果</textarea></td>
+                            <td><input type="checkbox" name="selectedmethod[]" value="${item1.sysno}"></td>
+                            <td>${item1.method}</td>
+                                <c:forEach items="${testcases[item1.sysno]}" var="item2">
+                                    <td colspan="4"><textarea rows="3" cols="20" name="testcases">${item2.content}</textarea></td>
+                                    <td colspan="4"><textarea rows="3" cols="20" name="results">运行结果</textarea></td>
+                                </c:forEach>
                         </tr>
                     </c:forEach>
             </c:otherwise>
         </c:choose>
         <tr>
-            <td colspan="4"><button class="blue" type="submit">批量运行</button></td>
+            <%--<td colspan="4"><input class="blue" type="submit" name="action" value="save"/></td>--%>
+            <%--<td colspan="4"><input class="blue" type="submit" name="action" value="run"/></td>--%>
+            <a href="/method/action/save}">save</a><br>
+            <a href="/method/action/run}">run</a><br>
         </tr>
     </table>
 </form>

@@ -16,4 +16,6 @@ public interface MethodService {
 
     List<Method> getMethodsByDomainId(Long domainId);
 
+    Method getMethodsByMethodId(Long methodId);
+
 }

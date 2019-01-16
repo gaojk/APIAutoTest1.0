@@ -23,7 +23,7 @@ import java.util.*;
 
 
 @Controller
-@RequestMapping("/resource")
+@RequestMapping("/domain")
 public class DomainController {
 
     @Autowired
