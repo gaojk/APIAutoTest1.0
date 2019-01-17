@@ -1,4 +1,4 @@
-package com.sandy.domain;
+package com.sandy.utils;
 
 import java.io.Serializable;
 import java.util.Objects;
