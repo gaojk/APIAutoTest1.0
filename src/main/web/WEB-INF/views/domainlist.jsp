@@ -1,43 +1,44 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: sandy.n.hao
-  Date: 2018/9/25
-  Time: 16:17
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <style type="text/css">
-    body{
-        /*font-family: "Times New Roman", Times, serif;*/
-        /*font-size: 18px;*/
-        /*color: #000000;*/
-
-        font: 18px/1.5 Tahoma,Helvetica,Arial,'宋体',sans-serif;
+    * {
+        margin:0; padding:0;
+        font-family: Arial, Helvetica, sans-serif;
     }
-
-    .demo{
-        position: absolute;
+    body {
+        background-image:url('/img/background.jpg');
+        background-size: cover;
+        font-size:13px;
+    }
+    div {
+        display: flex;
+        justify-content: center;
+        height: 100%;
+        align-items: center;
+    }
+    a {
+        color: white;
+        font-size: 30px;
+        width:100px;
+        text-align: center;
+        text-decoration: none;
+    }
+    .cell {
+        height: 100px;
+        vertical-align: middle;
+        display: flex;
+        line-height: 40px;
+        background-color: rgba(0,0,0,0.3);
+        border-radius: 5px;
+        box-shadow: 0 6px 10px rgba(0,0,0,0.3);
+        margin: 10px;
+        padding: 10px;
         width: 200px;
-        height: 200px;
-        border: 1px solid red;
+        align-items: center;
+        justify-content: center;
     }
-
-    p{
-        position: absolute;
-        width: 150px;
-        top: 50%;
-        left:50%;
-        transform: translate(-50%,-50%);
-        border: none;
-    }
-
-    a:link {color: black ; text-decoration:none;}
-    a:active {color: red; }
-    a:visited {color:gray;text-decoration:none;}
-    a:hover {color: red; text-decoration:underline;}
 </style>
 <html lang="zh_CN" class="html-">
 <head>
@@ -50,11 +51,11 @@
                     该用户无可用业务域。
                 </c:when>
                 <c:otherwise>
-                    <p>
                         <c:forEach items="${sessionScope.user.domainList}" var="item">
-                            <a href="/domain/get_methods_by_id?domainId=${item.sysno}"> ${item.desc}</a><br>
+                            <div class="cell">
+                                <a href="/domain/get_methods_bydomainid?domainId=${item.sysno}">${item.desc}</a>
+                            </div>
                         </c:forEach>
-                    </p>
                 </c:otherwise>
             </c:choose>
     </div>

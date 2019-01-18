@@ -32,7 +32,7 @@ public class DomainController {
     @Autowired
     private CaseService caseService;
 
-    @RequestMapping(value="/get_methods_by_id",method = RequestMethod.GET)
+    @RequestMapping(value="/get_methods_bydomainid",method = RequestMethod.GET)
     public String getMethodByResourceId(@RequestParam(value = "domainId")Long domainId, ModelMap modelMap){
 
         List<Method> methodList = methodService.getMethodsByDomainId(domainId);

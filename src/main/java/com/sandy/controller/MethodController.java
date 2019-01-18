@@ -45,7 +45,7 @@ public class MethodController {
     public String MethodSaveController(User user,
                                        @RequestParam(value = "env")String env,
                                        @RequestParam(value = "port")String port,
-                                       @RequestParam(value = "selectedmethod[]")List methodids, ModelMap modelMap)
+                                       @RequestParam(value = "selectedmethod")List methodids, ModelMap modelMap)
     {
 
         if(methodids.size() == 0){
@@ -75,7 +75,7 @@ public class MethodController {
                 }
 
             }
-            return "methodlist";
+            return "login";
         }
 
     }
