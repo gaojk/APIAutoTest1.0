@@ -42,7 +42,7 @@
 </style>
 <html lang="zh_CN" class="html-">
 <head>
-    <title>业务域</title>
+    <title>U domain</title>
 </head>
 <body>
     <div id="resource">

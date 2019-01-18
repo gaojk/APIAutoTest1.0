@@ -88,9 +88,9 @@
         <div>
             <select id="env">
                 <option>--请选择--</option>
-                <option value="test" selected="selected">QA</option>
-                <option value="demo">PRDtest</option>
-                <option value="online">PRD</option>
+                <option value="QA" selected="selected">QA</option>
+                <option value="PRDtest">PRDtest</option>
+                <option value="PRD">PRD</option>
             </select>
         </div>
         <div><label>端口：</label></div>

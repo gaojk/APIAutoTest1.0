@@ -12,10 +12,7 @@ import com.sandy.utils.HttpRequestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
@@ -41,48 +38,44 @@ public class MethodController {
     @Autowired
     private AppService appService;
 
+    @ResponseBody
     @RequestMapping(value="/run",method = RequestMethod.POST)
     public String MethodSaveController(User user,
                                        @RequestParam(value = "env")String env,
                                        @RequestParam(value = "port")String port,
-                                       @RequestParam(value = "selectedmethod")List methodids, ModelMap modelMap)
+                                       @RequestParam(value = "selectedmethod[]",required=false, defaultValue = "")Integer[] selectedmethod)
     {
 
-        if(methodids.size() == 0){
-            //alert("请勾选需要操作的方法")
-            return "login";
-        }
+        String result = null;
 
-        else{
+        //获取当前用户
+        App app = appService.getAppByUserId(user.getSysno());
 
-            //获取当前用户
-            App app = appService.getAppByUserId(user.getSysno());
+        //生成httprequest
+        for(int i=0; i<selectedmethod.length; i++){
 
-            //生成httprequest
-            for(int i=0; i<methodids.size(); i++){
+            Method method = methodService.getMethodsByMethodId(Long.parseLong(String.valueOf(selectedmethod[i])));
+            List<Testcase> testcases = caseService.getCaseByMethodId(Long.parseLong((String.valueOf(selectedmethod[i]))));
 
-                Method method = methodService.getMethodsByMethodId(Long.parseLong((String) methodids.get(i)));
-                List<Testcase> testcases = caseService.getCaseByMethodId(Long.parseLong((String) methodids.get(i)));
+            for(int j=0; j<testcases.size(); j++){
 
-                for(int j=0; j<testcases.size(); j++){
+                //组装
+                HttpRequestUtil.GeneHttpRequestUtil(method.getMethod(),testcases.get(j).getContent(),
+                        app.getAppId(),app.getAppSecret());
 
-                    //组装
-                    HttpRequestUtil.GeneHttpRequestUtil(method.getMethod(),testcases.get(j).getContent(),
-                            app.getAppId(),app.getAppSecret());
-
-                    //执行
-                    String result = HttpRequestUtil.ExeHttpRequestUtil(env, port);
-                }
+                //执行
+                result = HttpRequestUtil.ExeHttpRequestUtil(env, port);
 
             }
-            return "login";
+
         }
+        return result;
 
     }
 
 
     @RequestMapping(value="/save",method = RequestMethod.POST)
-    public void MethodRunController(@RequestParam(value = "user")User user,
+    public void MethodRunController(User user,
                                     @RequestParam(value = "selectmethod[]")List methodid, ModelMap modelMap)
     {
 
