@@ -50,28 +50,26 @@
                 selectedmethodlist[i] =$(this).val();
                 });
 
-            if (true) {
-                $.ajax(
+            $.ajax({
+                    url:"/method/action/run",
+                    type:"POST",
+                    data: {
+                        "selectedmethod":selectedmethodlist,
+                        "env":$('#env').val(),
+                        "port":$('#port').val()
+                    },
+                    dataType:"text",
+                    success:function(data)
                     {
-                        url:"/method/action/run",
-                        data: {
-                            "selectedmethod":selectedmethodlist,
-                            "env":$('#env').val(),
-                            "port":$('#port').val()
-                        },
-                        type:"post",
-                        dataType:"json",
-                        success:function(data)
-                        {
-                            $('#results').val(data)
+                        $('#results').val(data)
 
-                        },
-                        error:function(data)
-                        {
-                            $('#results').val('运行失败，请检查入参。')
-                        }
-                    });
-            }
+                    },
+                    error:function()
+                    {
+                        $('#results').val('运行失败，请检查入参。')
+                    }
+            });
+
 
         }
 

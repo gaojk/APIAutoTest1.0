@@ -51,7 +51,7 @@ public class MethodController {
         //获取当前用户
         App app = appService.getAppByUserId(user.getSysno());
 
-        //生成httprequest
+
         for(int i=0; i<selectedmethod.length; i++){
 
             Method method = methodService.getMethodsByMethodId(Long.parseLong(String.valueOf(selectedmethod[i])));
@@ -70,6 +70,7 @@ public class MethodController {
 
         }
         return result;
+
 
     }
 
