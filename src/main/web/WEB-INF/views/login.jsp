@@ -6,11 +6,13 @@
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>登录</title>
     <style type="text/css">
+        body background-image{url('/img/background.jpg');}
         .Verticalcenter{width: 670px; height: 350px; margin: 0 auto;}
         .Horizontalcenter{width: 270px; height: 150px; position: fixed; left: 50%; top: 50%; margin: -75px 0 0 -135px;}
     </style>
 </head>
 <body>
+<
 <div class="Verticalcenter">
     <div class="Horizontalcenter">
         <form action="/user/login" method="post">

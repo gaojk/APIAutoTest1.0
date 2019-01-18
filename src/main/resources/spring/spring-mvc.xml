@@ -17,7 +17,8 @@
 
     <mvc:annotation-driven/>
 
-    <mvc:resources mapping="/resources/**" location="/resources/"/>
+    <!--<mvc:resources location="/resources/" mapping="/resources/**"/>-->
+    <mvc:resources location="/img/" mapping="/img/**"/>
 
     <!-- 定义跳转文件的前后缀-->
     <bean id="viewResolver"

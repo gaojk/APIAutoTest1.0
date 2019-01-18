@@ -9,23 +9,26 @@
     <script>
         function run()
         {
-            var selectedmethod = $("#selectedmethod[]").val();
-            $.ajax(
-            {
-                url:"/method/action/save",
-                data:{"selectedmethod":selectedmethod},
-                type:"post",
-                dataType:"json",
-                success:function(data)
-                {
-                    var jsons = data;
+            var selectedmethod = $("#selectedmethod").val();
+            if (true) {
+                $.ajax(
+                    {
+                        url:"/method/action/save",
+                        data:{"selectedmethod":selectedmethod},
+                        type:"post",
+                        dataType:"json",
+                        success:function(data)
+                        {
+                            $('#results').val('data')
 
-                },
-                error:function(data)
-                {
+                        },
+                        error:function(data)
+                        {
 
-                }
-            });
+                        }
+                    });
+            }
+
         }
 
         function save()
@@ -66,11 +69,11 @@
             <c:otherwise>
                     <c:forEach items="${requestScope.methods}" var="item1">
                         <tr>
-                            <td><input type="checkbox" name="selectedmethod[]" value="${item1.sysno}"></td>
+                            <td><input type="checkbox" id="selectedmethod" value="${item1.sysno}"></td>
                             <td>${item1.method}</td>
                                 <c:forEach items="${testcases[item1.sysno]}" var="item2">
-                                    <td colspan="4"><textarea rows="3" cols="20" name="testcases">${item2.content}</textarea></td>
-                                    <td colspan="4"><textarea rows="3" cols="20" name="results">运行结果</textarea></td>
+                                    <td colspan="4"><textarea rows="3" cols="20" id="testcases" name="testcases">${item2.content}</textarea></td>
+                                    <td colspan="4"><textarea rows="3" cols="20" id="results" name="results">运行结果</textarea></td>
                                 </c:forEach>
                         </tr>
                     </c:forEach>
