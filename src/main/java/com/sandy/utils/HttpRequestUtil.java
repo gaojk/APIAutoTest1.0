@@ -80,12 +80,13 @@ public class HttpRequestUtil {
 
         for(Env enumenv : Env.values())
         {
-            if (enumenv.toString() == env)
+            if (enumenv.toString().equals(env))
             {
                 url = enumenv.url;
             }
             else
             {
+                 url =  "http://api.mall.yzw.cn.qa:8000/open.api";
             }
         }
 

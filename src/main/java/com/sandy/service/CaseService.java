@@ -19,4 +19,8 @@ public interface CaseService {
     Map<Long, List<Testcase>> getCaseByMethodId(List<Method> methodList);
 
     List<Testcase> getCaseByMethodId(Long methodId);
+
+    List<Testcase> getCaseByMethodIdAndUserId(Long methodId, Long userId);
+
+    void updateCaseByMethodIdAndUserId(Long methodId, Long userId, String content);
 }

@@ -1,6 +1,7 @@
 package com.sandy.dao;
 
 import com.sandy.domain.Testcase;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -54,4 +55,8 @@ public interface TestcaseMapper {
     int updateByPrimaryKey(Testcase record);
 
     List<Testcase> selectCaseByMethodId(Long methodId);
+
+    List<Testcase> selectCaseByMethodIdAndUserId(Long methodId, Long userId);
+
+    void updateByMethodAndUserId(@Param("methodid")Long methodId, @Param("userid")Long userId, @Param("content")String content);
 }

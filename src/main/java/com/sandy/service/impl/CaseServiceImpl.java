@@ -50,4 +50,19 @@ public class CaseServiceImpl implements CaseService {
         return testcases;
     }
 
+    @Override
+    public List<Testcase> getCaseByMethodIdAndUserId(Long methodId, Long userId) {
+
+        List<Testcase> testcases = testcaseMapper.selectCaseByMethodIdAndUserId(methodId, userId);
+
+        return testcases;
+    }
+
+    @Override
+    public void updateCaseByMethodIdAndUserId(Long methodId, Long userId, String content) {
+
+        testcaseMapper.updateByMethodAndUserId(methodId, userId, content);
+
+    }
+
 }
