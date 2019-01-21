@@ -15,6 +15,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -46,7 +47,7 @@ public class MethodController {
     public Map<Long, String> MethodSaveController(User user,
                                                   @RequestParam(value = "env")String env,
                                                   @RequestParam(value = "port")String port,
-                                                  @RequestParam(value = "selectedmethod[]",required=false, defaultValue = "")Integer[] selectedmethod)
+                                                  @RequestParam(value = "selectedmethod[]", required=false, defaultValue = "")Integer[] selectedmethod)
     {
 
         Map<Long,String> result = new HashMap<>();
@@ -81,17 +82,20 @@ public class MethodController {
     @RequestMapping(value="/save",method = RequestMethod.POST)
     public String MethodRunController(User user,
                                       ModelMap modelMap,
-                                      @RequestParam(value = "selectedmethod[]",required=false, defaultValue = "")Integer[] selectedmethod)
+                                      @RequestParam(value = "selectedcase", required=false, defaultValue = "")Map selectedcase)
     {
 
         //获取当前登录用户
         App app = appService.getAppByUserId(user.getSysno());
 
-        for(int i=0; i<selectedmethod.length; i++){
+        Iterator iterator = selectedcase.keySet().iterator();
 
-            Long methodId = Long.parseLong(String.valueOf(selectedmethod[i]));
+        while (iterator.hasNext()){
 
-            caseService.updateCaseByMethodIdAndUserId(methodId, user.getSysno(), );
+            Long methodId = (Long) iterator.next();
+            String content = String.valueOf(selectedcase.get(methodId));
+
+            caseService.updateCaseByMethodIdAndUserId(methodId, user.getSysno(), content);
 
         }
 

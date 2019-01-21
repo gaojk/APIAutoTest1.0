@@ -152,13 +152,16 @@
                         // console.log(data);
                         for(key in data){
                             var jsonFormat = formatJson(data[key]);
-                            $('#results_'+key).val(jsonFormat);
+                            $('#results_'+key).val( );
                         }
 
                     },
-                    error:function()
+                    error:function(data)
                     {
-                        $('#results_'+key).val('运行失败，请检查入参。')
+                        for(key in data){
+                            $('#results_'+key).val('运行失败，请检查入参。')
+                        }
+
                     }
             });
         }
@@ -168,9 +171,7 @@
 
             $("input[name='selectedmethod']:checked").each(function(i){
 
-                this.put = function(key,value){
-                    selectedcaselist[$(this).val()] = $('#testcases_'+$(this).val()); //把键值对绑定到obj对象上
-                }
+                selectedcaselist[$(this).val()] = $('#testcases_'+$(this).val()).text();
 
             });
 
@@ -188,9 +189,11 @@
                         $('#testcases_'+key).val(jsonFormat);
                     }
                 },
-                error:function()
+                error:function(data)
                 {
-                    $('#testcases_'+key).val('运行失败，请检查入参。')
+                    for(key in data){
+                        $('#results_'+key).val('运行失败，请检查入参。')
+                    }
                 }
             });
         }
