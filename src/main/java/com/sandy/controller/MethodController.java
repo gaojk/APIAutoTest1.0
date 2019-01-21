@@ -1,6 +1,7 @@
 package com.sandy.controller;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.sandy.domain.App;
 import com.sandy.domain.Method;
 import com.sandy.domain.Testcase;
@@ -8,14 +9,13 @@ import com.sandy.domain.User;
 import com.sandy.service.AppService;
 import com.sandy.service.CaseService;
 import com.sandy.service.MethodService;
-import com.sandy.utils.HttpRequestUtil;
+import com.sandy.utils.HttpUtils.HttpRequestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -42,6 +42,8 @@ public class MethodController {
     @Autowired
     private AppService appService;
 
+    List<Testcase> testcases = (List<Testcase>) new Testcase();
+
     @ResponseBody
     @RequestMapping(value="/run",method = RequestMethod.POST)
     public Map<Long, String> MethodSaveController(User user,
@@ -61,7 +63,7 @@ public class MethodController {
 
             Long methodId = Long.parseLong(String.valueOf(selectedmethod[i]));
             Method method = methodService.getMethodsByMethodId(methodId);
-            List<Testcase> testcases = caseService.getCaseByMethodIdAndUserId(methodId,user.getSysno());
+            testcases = caseService.getCaseByMethodIdAndUserId(methodId,user.getSysno());
 
             for(int j=0; j<testcases.size(); j++){
                 //组装
@@ -70,7 +72,6 @@ public class MethodController {
 
                 //执行
                 result.put(methodId,HttpRequestUtil.ExeHttpRequestUtil(env, port));
-
             }
 
         }
@@ -78,28 +79,34 @@ public class MethodController {
 
     }
 
-
+    @ResponseBody
     @RequestMapping(value="/save",method = RequestMethod.POST)
-    public String MethodRunController(User user,
-                                      ModelMap modelMap,
-                                      @RequestParam(value = "selectedcase", required=false, defaultValue = "")Map selectedcase)
+    public Map<Long, String> MethodRunController(User user,
+                                                 @RequestParam(value = "selectedcase[]", required=false, defaultValue = "")String[] selectedcase)
     {
 
-        //获取当前登录用户
-        App app = appService.getAppByUserId(user.getSysno());
+        JSONObject object;
+        Long methodId;
+        String content;
+        Map<Long,String> result = new HashMap<>();
 
-        Iterator iterator = selectedcase.keySet().iterator();
-
-        while (iterator.hasNext()){
-
-            Long methodId = (Long) iterator.next();
-            String content = String.valueOf(selectedcase.get(methodId));
-
+        for(int i=0; i<selectedcase.length; i++)
+        {
+            object = JSONObject.parseObject(selectedcase[i]);
+            methodId = object.getLong("id");
+            content = object.getString("param");
             caseService.updateCaseByMethodIdAndUserId(methodId, user.getSysno(), content);
+            testcases = caseService.getCaseByMethodIdAndUserId(methodId,user.getSysno());
+
+            for(int j=0; j<testcases.size(); j++){
+
+                result.put(methodId,testcases.get(j).getContent());
+
+            }
 
         }
 
-        return "methodlist";
+        return result;
     }
 
 }

@@ -149,9 +149,8 @@
                     dataType:"json",
                     success:function(data)
                     {
-                        // console.log(data);
                         for(key in data){
-                            var jsonFormat = formatJson(data[key]);
+                            // var jsonFormat = formatJson(data[key]);
                             $('#results_'+key).val( );
                         }
 
@@ -165,13 +164,17 @@
                     }
             });
         }
+
         function save()
         {
-            var selectedcaselist = {}
 
+            var selectedcaselist = [];
             $("input[name='selectedmethod']:checked").each(function(i){
-
-                selectedcaselist[$(this).val()] = $('#testcases_'+$(this).val()).text();
+                var tmp = {};
+                tmp.id=$(this).val();
+                tmp.param= $('#testcases_'+$(this).val()).text();
+                selectedcaselist.push(JSON.stringify(tmp));
+                //selectedcaselist[$(this).val()] = $('#testcases_'+$(this).val()); //把键值对绑定到obj对象上
 
             });
 
@@ -237,7 +240,8 @@
                         <!--加载数据与结果-->
                         <c:forEach items="${testcases[item1.sysno]}" var="item2">
                             <div><textarea id="testcases_${item1.sysno}" name="testcases">${item2.content}</textarea></div>
-                            <div><textarea id="results_${item1.sysno}" name="results">运行结果</textarea></div>                        </c:forEach>
+                            <div><textarea id="results_${item1.sysno}" name="results">运行结果</textarea></div>
+                        </c:forEach>
                     </div>
                 </c:forEach>
             </c:otherwise>

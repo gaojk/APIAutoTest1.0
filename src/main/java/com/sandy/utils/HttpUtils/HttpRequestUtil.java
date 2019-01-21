@@ -1,5 +1,6 @@
-package com.sandy.utils;
+package com.sandy.utils.HttpUtils;
 
+import com.sandy.utils.MD5Utils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -37,7 +38,7 @@ public class HttpRequestUtil {
     public final static String NONCE = "80bb50cffa65451582a1ec2e1a0fd512";
     public final static String VERSION = "1.0";
 
-    static MD5Utils  md5Utils = new MD5Utils();
+    static MD5Utils md5Utils = new MD5Utils();
 
     public enum Env{
         QA("http://api.mall.yzw.cn.qa:8000/open.api"),

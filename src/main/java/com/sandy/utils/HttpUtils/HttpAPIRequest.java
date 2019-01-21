@@ -1,4 +1,4 @@
-package com.sandy.utils;
+package com.sandy.utils.HttpUtils;
 
 import java.io.Serializable;
 import java.util.Objects;
