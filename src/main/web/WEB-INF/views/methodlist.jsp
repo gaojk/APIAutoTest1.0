@@ -162,7 +162,6 @@
                     }
             });
         }
-
         function save()
         {
             var selectedcaselist = {}
@@ -170,13 +169,13 @@
             $("input[name='selectedmethod']:checked").each(function(i){
 
                 this.put = function(key,value){
-                    selectedcaselist[key] = value; //把键值对绑定到obj对象上
+                    selectedcaselist[$(this).val()] = $('#testcases_'+$(this).val()); //把键值对绑定到obj对象上
                 }
 
             });
 
             $.ajax({
-                url:"/method/action/run",
+                url:"/method/action/save",
                 type:"POST",
                 data: {
                     "selectedcase":selectedcaselist
