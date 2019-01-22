@@ -12,9 +12,11 @@ import com.sandy.service.MethodService;
 import com.sandy.utils.HttpUtils.HttpRequestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import sun.misc.BASE64Decoder;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,13 +49,14 @@ public class MethodController {
     public Map<Long, String> MethodSaveController(User user,
                                                   @RequestParam(value = "env")String env,
                                                   @RequestParam(value = "port")String port,
+                                                  @RequestParam(value = "appid")Long appId,
                                                   @RequestParam(value = "selectedmethod[]", required=false, defaultValue = "")Integer[] selectedmethod)
     {
 
         Map<Long,String> result = new HashMap<>();
 
         //获取当前登录用户
-        App app = appService.getAppByUserId(user.getSysno());
+//        List<App> app = appService.getAppByUserId(user.getSysno());
 
 
         for(int i=0; i<selectedmethod.length; i++){
@@ -62,6 +65,7 @@ public class MethodController {
             Long methodId = Long.parseLong(String.valueOf(selectedmethod[i]));
             Method method = methodService.getMethodsByMethodId(methodId);
             List<Testcase> testcases = caseService.getCaseByMethodIdAndUserId(methodId,user.getSysno());
+            App app = appService.getAppByAppId(appId);
 
             for(int j=0; j<testcases.size(); j++){
                 //组装
@@ -73,6 +77,7 @@ public class MethodController {
             }
 
         }
+
         return result;
 
     }
@@ -80,17 +85,24 @@ public class MethodController {
     @ResponseBody
     @RequestMapping(value="/save",method = RequestMethod.POST)
     public Map<Long, String> MethodRunController(User user,
-                                                 @RequestParam(value = "selectedcase[]", required=false, defaultValue = "")String[] selectedcase)
-    {
+                                                 @RequestParam(value = "selectedcase[]", required=false, defaultValue = "")String[] selectedcase) throws IOException {
 
         JSONObject object;
         Long methodId;
         String content;
         Map<Long,String> result = new HashMap<>();
+        BASE64Decoder decoder = new BASE64Decoder();
+        byte[] decoding;
+
+
 
         for(int i=0; i<selectedcase.length; i++)
         {
-            object = JSONObject.parseObject(selectedcase[i]);
+
+            decoding = decoder.decodeBuffer(selectedcase[i]);
+            String selectedcasestr = new String(decoding, StandardCharsets.UTF_8);
+
+            object = JSONObject.parseObject(selectedcasestr);
             methodId = object.getLong("id");
             content = object.getString("param");
             caseService.updateCaseByMethodIdAndUserId(methodId, user.getSysno(), content);

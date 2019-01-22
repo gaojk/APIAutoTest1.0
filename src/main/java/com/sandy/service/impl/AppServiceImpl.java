@@ -6,6 +6,8 @@ import com.sandy.service.AppService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @ClassName: MethodService
  * @Author sandy.n.hao
@@ -21,9 +23,17 @@ public class AppServiceImpl implements AppService {
     private AppMapper appMapper;
 
     @Override
-    public App getAppByUserId(Long userId){
+    public List<App> getAppByUserId(Long userId){
 
-        App app = appMapper.selectByUserId(userId);
+        List<App> app = appMapper.selectByUserId(userId);
+
+        return app;
+    }
+
+    @Override
+    public App getAppByAppId(Long appId) {
+
+        App app = appMapper.selectByPrimaryKey(appId);
 
         return app;
     }

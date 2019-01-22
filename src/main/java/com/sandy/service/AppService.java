@@ -1,7 +1,6 @@
 package com.sandy.service;
 
 import com.sandy.domain.App;
-import com.sandy.domain.Method;
 
 import java.util.List;
 
@@ -15,5 +14,7 @@ import java.util.List;
 
 public interface AppService {
 
-     App getAppByUserId(Long userId);
+     List<App> getAppByUserId(Long userId);
+
+     App getAppByAppId(Long appId);
 }

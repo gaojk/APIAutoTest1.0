@@ -18,6 +18,8 @@ public interface CaseService {
 
     Map<Long, List<Testcase>> getCaseByMethodId(List<Method> methodList);
 
+    Map<Long, List<Testcase>> getCaseByMethodIdAndUserId(List<Method> methodList, Long userId);
+
     List<Testcase> getCaseByMethodId(Long methodId);
 
     List<Testcase> getCaseByMethodIdAndUserId(Long methodId, Long userId);

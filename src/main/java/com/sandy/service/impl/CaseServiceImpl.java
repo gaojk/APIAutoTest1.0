@@ -28,6 +28,14 @@ public class CaseServiceImpl implements CaseService {
     private TestcaseMapper testcaseMapper;
 
     @Override
+    public List<Testcase> getCaseByMethodId(Long methodId){
+
+        List<Testcase> testcases = testcaseMapper.selectCaseByMethodId(methodId);
+
+        return testcases;
+    }
+
+    @Override
     public Map<Long, List<Testcase>> getCaseByMethodId(List<Method> methodList){
 
         Map<Long, List<Testcase>> caseList = new HashMap<>();
@@ -43,19 +51,27 @@ public class CaseServiceImpl implements CaseService {
 
 
     @Override
-    public List<Testcase> getCaseByMethodId(Long methodId){
-
-        List<Testcase> testcases = testcaseMapper.selectCaseByMethodId(methodId);
-
-        return testcases;
-    }
-
-    @Override
     public List<Testcase> getCaseByMethodIdAndUserId(Long methodId, Long userId) {
 
         List<Testcase> testcases = testcaseMapper.selectCaseByMethodIdAndUserId(methodId, userId);
 
         return testcases;
+    }
+
+    @Override
+    public Map<Long, List<Testcase>> getCaseByMethodIdAndUserId(List<Method> methodList, Long userId){
+
+        Map<Long, List<Testcase>> caseList = new HashMap<>();
+
+        for(int i=0; i<methodList.size(); i++){
+
+            caseList.put(methodList.get(i).getSysno(),
+                    testcaseMapper.selectCaseByMethodIdAndUserId(methodList.get(i).getSysno(),userId));
+
+        }
+
+        return caseList;
+
     }
 
     @Override
