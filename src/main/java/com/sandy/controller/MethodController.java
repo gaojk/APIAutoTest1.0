@@ -42,8 +42,6 @@ public class MethodController {
     @Autowired
     private AppService appService;
 
-    List<Testcase> testcases = (List<Testcase>) new Testcase();
-
     @ResponseBody
     @RequestMapping(value="/run",method = RequestMethod.POST)
     public Map<Long, String> MethodSaveController(User user,
@@ -63,7 +61,7 @@ public class MethodController {
 
             Long methodId = Long.parseLong(String.valueOf(selectedmethod[i]));
             Method method = methodService.getMethodsByMethodId(methodId);
-            testcases = caseService.getCaseByMethodIdAndUserId(methodId,user.getSysno());
+            List<Testcase> testcases = caseService.getCaseByMethodIdAndUserId(methodId,user.getSysno());
 
             for(int j=0; j<testcases.size(); j++){
                 //组装
@@ -96,7 +94,7 @@ public class MethodController {
             methodId = object.getLong("id");
             content = object.getString("param");
             caseService.updateCaseByMethodIdAndUserId(methodId, user.getSysno(), content);
-            testcases = caseService.getCaseByMethodIdAndUserId(methodId,user.getSysno());
+            List<Testcase> testcases = caseService.getCaseByMethodIdAndUserId(methodId,user.getSysno());
 
             for(int j=0; j<testcases.size(); j++){
 
@@ -105,7 +103,6 @@ public class MethodController {
             }
 
         }
-
         return result;
     }
 

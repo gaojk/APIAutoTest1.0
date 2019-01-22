@@ -58,5 +58,5 @@ public interface TestcaseMapper {
 
     List<Testcase> selectCaseByMethodIdAndUserId(Long methodId, Long userId);
 
-    void updateByMethodAndUserId(@Param("methodid")Long methodId, @Param("userid")Long userId, @Param("content")String content);
+    void updateByMethodAndUserId(@Param("methodId")Long methodId, @Param("userId")Long userId, @Param("content")String content);
 }

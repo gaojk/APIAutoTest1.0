@@ -122,12 +122,11 @@
     from testcase
     where method_sysno = #{0,jdbcType=BIGINT} and user_sysno = #{1,jdbcType=BIGINT}
   </select>
-  <update id="updateByMethodAndUserId" parameterType="com.sandy.domain.Testcase">
+  <update id="updateByMethodAndUserId">
     update testcase
-    set method_sysno = #{methodSysno,jdbcType=BIGINT},
-      user_sysno = #{userSysno,jdbcType=VARCHAR},
+    set
       content = #{content,jdbcType=VARCHAR},
       edit_time = current_time
-    where method_sysno = #{0,jdbcType=BIGINT} and user_sysno = #{1,jdbcType=BIGINT}
+    where method_sysno = #{methodId,jdbcType=BIGINT} and user_sysno = #{userId,jdbcType=BIGINT}
   </update>
 </mapper>
