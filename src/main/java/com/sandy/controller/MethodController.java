@@ -93,6 +93,7 @@ public class MethodController {
         Map<Long,String> result = new HashMap<>();
         BASE64Decoder decoder = new BASE64Decoder();
         byte[] decoding;
+        List<Testcase> testcases;
 
 
 
@@ -105,13 +106,25 @@ public class MethodController {
             object = JSONObject.parseObject(selectedcasestr);
             methodId = object.getLong("id");
             content = object.getString("param");
-            caseService.updateCaseByMethodIdAndUserId(methodId, user.getSysno(), content);
-            List<Testcase> testcases = caseService.getCaseByMethodIdAndUserId(methodId,user.getSysno());
 
-            for(int j=0; j<testcases.size(); j++){
+            if(content != null)
+            {
+                testcases = caseService.getCaseByMethodIdAndUserId(methodId,user.getSysno());
 
-                result.put(methodId,testcases.get(j).getContent());
+                if(testcases.size() == 0 ){
+                    caseService.insertCase(methodId,user.getSysno(),content);
+                }
+                else{
+                    caseService.updateCaseByMethodIdAndUserId(methodId, user.getSysno(), content);
+                }
 
+                testcases = caseService.getCaseByMethodIdAndUserId(methodId,user.getSysno());
+
+                for(int j=0; j<testcases.size(); j++){
+
+                    result.put(methodId,testcases.get(j).getContent());
+
+                }
             }
 
         }

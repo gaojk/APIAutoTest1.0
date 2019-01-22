@@ -263,6 +263,14 @@
             $("input[name='selectedmethod']:checked").each(function(i){
                 selectedmethodlist[i] =$(this).val();
             });
+
+            if($('#env').val() == "--请选择--")
+                alert("请选择运行环境")
+            if($('#port').val() == "--请选择--" && $('#env').val() == "QA")
+                alert("请选择运行环境")
+            if($('#appid').val() == "--请选择--")
+                alert("请选择供应商")
+
             $.ajax({
                 url:"/method/action/run",
                 type:"POST",
@@ -384,7 +392,7 @@
                         <div class="box">
                             <c:choose>
                                 <c:when test="${empty requestScope.testcases  || fn:length(testcases.methods) == 0}">
-                                    <textarea id="testcases_${item1.sysno}" name="testcases">请输入入参</textarea>
+                                    <textarea id="testcases_${item1.sysno}" name="testcases"></textarea>
                                 </c:when>
                                 <c:otherwise>
                                     <c:forEach items="${testcases[item1.sysno]}" var="item2">

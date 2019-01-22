@@ -54,4 +54,5 @@ public interface AppMapper {
     int updateByPrimaryKey(App record);
 
     List<App> selectByUserId(Long userId);
+
 }

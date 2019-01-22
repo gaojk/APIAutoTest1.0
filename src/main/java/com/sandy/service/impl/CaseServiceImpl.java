@@ -81,4 +81,9 @@ public class CaseServiceImpl implements CaseService {
 
     }
 
+    @Override
+    public void insertCase(Long methodId, Long userId, String content) {
+        testcaseMapper.insertCase(methodId, userId, content);
+    }
+
 }

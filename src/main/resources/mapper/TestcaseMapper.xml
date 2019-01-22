@@ -37,12 +37,6 @@
     delete from testcase
     where sysno = #{sysno,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.sandy.domain.Testcase" >
-    insert into testcase (sysno, method_sysno, user_sysno, 
-      content, edit_time)
-    values (#{sysno,jdbcType=BIGINT}, #{methodSysno,jdbcType=BIGINT}, #{userSysno,jdbcType=VARCHAR}, 
-      #{content,jdbcType=VARCHAR}, #{editTime,jdbcType=TIMESTAMP})
-  </insert>
   <insert id="insertSelective" parameterType="com.sandy.domain.Testcase" >
     insert into testcase
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -129,4 +123,10 @@
       edit_time = current_time
     where method_sysno = #{methodId,jdbcType=BIGINT} and user_sysno = #{userId,jdbcType=BIGINT}
   </update>
+  <insert id="insertCase" parameterType="com.sandy.domain.Testcase" >
+    insert into testcase (method_sysno, user_sysno,
+      content, edit_time)
+    values (#{methodId,jdbcType=BIGINT}, #{userId,jdbcType=VARCHAR},
+      #{content,jdbcType=VARCHAR}, current_time)
+  </insert>
 </mapper>

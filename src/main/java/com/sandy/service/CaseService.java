@@ -25,4 +25,6 @@ public interface CaseService {
     List<Testcase> getCaseByMethodIdAndUserId(Long methodId, Long userId);
 
     void updateCaseByMethodIdAndUserId(Long methodId, Long userId, String content);
+
+    void insertCase(Long methodId, Long userId, String content);
 }
