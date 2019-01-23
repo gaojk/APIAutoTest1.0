@@ -305,7 +305,7 @@
             $("input[name='selectedmethod']:checked").each(function(i){
                 var tmp = {};
                 tmp.id=$(this).val();
-                var param= $('#testcases_'+$(this).val()).text();
+                var param= $('#testcases_'+$(this).val()).val();
                 tmp.param=param.replace(/[\ \r\n]/g,"");
                 selectedcaselist.push($.base64.encode(JSON.stringify(tmp),'utf-8'));
             });
@@ -382,8 +382,9 @@
             <c:otherwise>
                 <c:forEach items="${requestScope.methods}" var="item1">
                     <div class="box-con mt20 ofh">
+
+                        <!--加载复选框与方法名-->
                         <div class="box">
-                            <!--加载复选框与方法名-->
                             <input type="checkbox" name="selectedmethod" value="${item1.sysno}">
                             ${item1.method}
                         </div>
@@ -391,7 +392,7 @@
                         <!--加载case-->
                         <div class="box">
                             <c:choose>
-                                <c:when test="${empty requestScope.testcases  || fn:length(testcases.methods) == 0}">
+                                <c:when test="${empty requestScope.testcases  || fn:length(testcases[item1.sysno]) == 0}">
                                     <textarea id="testcases_${item1.sysno}" name="testcases"></textarea>
                                 </c:when>
                                 <c:otherwise>
@@ -407,16 +408,6 @@
                             <textarea id="results_${item1.sysno}" name="results">运行结果</textarea>
                         </div>
 
-
-                        <%--<!--加载数据与结果-->--%>
-                        <%--<c:forEach items="${testcases[item1.sysno]}" var="item2">--%>
-                            <%--<div class="box">--%>
-                                <%--<textarea id="testcases_${item1.sysno}" name="testcases">${item2.content}</textarea>--%>
-                            <%--</div>--%>
-                            <%--<div class="box">--%>
-                                <%--<textarea id="results_${item1.sysno}" name="results">运行结果</textarea>--%>
-                            <%--</div>--%>
-                        <%--</c:forEach>--%>
                     </div>
                 </c:forEach>
             </c:otherwise>

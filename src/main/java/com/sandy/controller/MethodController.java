@@ -57,6 +57,7 @@ public class MethodController {
 
         //获取当前登录用户
 //        List<App> app = appService.getAppByUserId(user.getSysno());
+        App app = appService.getAppByAppId(appId);
 
 
         for(int i=0; i<selectedmethod.length; i++){
@@ -65,7 +66,7 @@ public class MethodController {
             Long methodId = Long.parseLong(String.valueOf(selectedmethod[i]));
             Method method = methodService.getMethodsByMethodId(methodId);
             List<Testcase> testcases = caseService.getCaseByMethodIdAndUserId(methodId,user.getSysno());
-            App app = appService.getAppByAppId(appId);
+
 
             for(int j=0; j<testcases.size(); j++){
                 //组装
