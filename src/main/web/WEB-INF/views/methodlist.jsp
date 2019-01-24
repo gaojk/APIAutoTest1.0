@@ -66,6 +66,11 @@
             border: 1px solid green;
             padding: 10px;
         }
+        .highLight{
+            color: red !important;
+            border:3px solid red !important;
+            font-weight:bold !important;
+        }
     </style>
     <script>
 
@@ -259,66 +264,22 @@
             });
         });
 
-        function run()
-        {
-            var selectedmethodlist = [];
-            $("input[name='selectedmethod']:checked").each(function(i){
-                selectedmethodlist[i] =$(this).val();
-            });
-
-
-            if($('#env').val() == "0" )
-            {
-                alert("请选择运行环境");
-                return false;
-            }
-
-
-            if($('#port').val() == "0" && $('#env').val() == "QA")
-            {
-                alert("请选择端口");
-                return false;
-
-            }
-
-            if($('#appid').val() == "0")
-            {
-                alert("请选择供应商");
-                return false;
-            }
-
-            if($("input[name='selectedmethod']:checked").length==0){
-                alert("请勾选要运行的API");
-                return false;
-            }
-
-
-            $.ajax({
-                url:"/method/action/run",
-                type:"POST",
-                data: {
-                    "selectedmethod":selectedmethodlist,
-                    "env":$('#env').val(),
-                    "port":$('#port').val(),
-                    "appid":$('#appid').val()
-                },
-                dataType:"json",
-                success:function(data)
-                {
-                    for(key in data){
-                        console.log(data);
-                        var jsonFormat = formatJson(data[key]);
-                        $('#results_'+key).text(jsonFormat)
-                        // $('#results_'+key).text( data[key]);
+        function isJSON(str) {
+            if (typeof str == 'string') {
+                try {
+                    var obj=JSON.parse(str);
+                    if(typeof obj == 'object' && obj ){
+                        return true;
+                    }else{
+                        return false;
                     }
-                },
-                error:function(data)
-                {
-                    for(key in data){
-                        $('#results_'+key).val('运行失败，请检查入参。')
-                    }
+
+                } catch(e) {
+                    console.log('error：'+str+'!!!'+e);
+                    return false;
                 }
-            });
+            }
+            return false;
         }
 
         function save()
@@ -330,11 +291,19 @@
 
             var selectedcaselist = [];
             $("input[name='selectedmethod']:checked").each(function(i){
-                var tmp = {};
-                tmp.id=$(this).val();
-                var param= $('#testcases_'+$(this).val()).val();
-                tmp.param=param.replace(/[\ \r\n]/g,"");
-                selectedcaselist.push($.base64.encode(JSON.stringify(tmp),'utf-8'));
+
+                $("input[name='selectedmethod']:checked").each(function(i){
+                    var tmp = {};
+                    tmp.id=$(this).val();
+                    var param= $('#testcases_'+$(this).val()).val();
+                    tmp.param=param.replace(/[\ \r\n]/g,"");
+                    if(!isJSON(tmp.param)){
+                        $("textarea[id='testcases_${item1.sysno}']").addClass('highLight');
+                        return false;
+                    }
+                    selectedcaselist.push($.base64.encode(JSON.stringify(tmp),'utf-8'));
+                });
+
             });
             $.ajax({
                 url:"/method/action/save",
