@@ -67,13 +67,14 @@
             padding: 10px;
         }
         .highLight{
-            color: red !important;
+            color: red;
+            font-weight:bold;
             border:3px solid red !important;
-            font-weight:bold !important;
         }
     </style>
     <script>
 
+        //Json格式化
         var formatJson = function(json, options) {
             var reg = null,
                 formatted = '',
@@ -141,6 +142,7 @@
             return formatted;
         };
 
+        //base64加密
         ;(function($) {
 
             var b64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/",
@@ -255,8 +257,8 @@
             };
         }(jQuery));
 
+        //页面加载时直接格式化testcase文本框数据
         $(function(){
-
             $("textarea[id^='testcases_']").each(function(index){
                 // console.log($(this).text());
                 var formatJsonString = $(this).text()==''?'':formatJson($(this).text());
@@ -264,8 +266,9 @@
             });
         });
 
+        //判断是否是Json串
         function isJSON(str) {
-            if (typeof str == 'string' && str.length != 0 ) {
+            if (typeof str == 'string') {
                 try {
                     var obj=JSON.parse(str);
                     if(typeof obj == 'object' && obj ){
@@ -282,6 +285,72 @@
             return false;
         }
 
+        //运行
+        function run()
+        {
+
+            if($('#env').val() == "0" )
+            {
+                alert("请选择运行环境");
+                return false;
+            }
+
+
+            if($('#port').val() == "0" && $('#env').val() == "QA")
+            {
+                alert("请选择端口");
+                return false;
+
+            }
+
+            if($('#appid').val() == "0")
+            {
+                alert("请选择供应商");
+                return false;
+            }
+
+            if($("input[name='selectedmethod']:checked").length==0){
+                alert("请勾选要运行的API");
+                return false;
+            }
+
+            var selectedmethodlist = [];
+            $("input[name='selectedmethod']:checked").each(function(i){
+                selectedmethodlist[i] =$(this).val();
+            });
+
+            $.ajax({
+                url:"/method/action/run",
+                type:"POST",
+                data: {
+                    "selectedmethod":selectedmethodlist,
+                    "env":$('#env').val(),
+                    "port":$('#port').val(),
+                    "appid":$('#appid').val()
+                },
+                dataType:"json",
+                success:function(data)
+                {
+                    for(key in data){
+                        if(isJSON(data[key])){
+                            var jsonFormat = formatJson(data[key]);
+                            $('#results_'+key).text(jsonFormat)
+                        }
+                        else {
+                            $('#results_'+key).text(data[key])
+                        }
+                    }
+                },
+                error:function(data)
+                {
+                    for(key in data){
+                        $('#results_'+key).val('运行失败，请检查入参。')
+                    }
+                }
+            });
+        }
+
+        //保存
         function save()
         {
             if($("input[name='selectedmethod']:checked").length==0){
@@ -296,12 +365,13 @@
                 var param= $('#testcases_'+$(this).val()).val();
                 tmp.param=param.replace(/[\ \r\n]/g,"");
                 if(!isJSON(tmp.param)){
-                    $('#testcases_'+$(this).val()).addClass('hightLight');
+                    $('#testcases_'+$(this).val()).addClass('highLight');
                 }else{
                     selectedcaselist.push($.base64.encode(JSON.stringify(tmp),'utf-8'));
                 }
 
             });
+
             $.ajax({
                 url:"/method/action/save",
                 type:"POST",
@@ -309,6 +379,14 @@
                     "selectedcase":selectedcaselist
                 },
                 dataType:"json",
+                beforeSend:function(xhr)
+                {
+                    if(selectedcaselist.length==0){
+                        alert("所勾选的API无可执行用例，请输入并保存用例！")
+                        return false;
+                    }
+                    return true;
+                },
                 success:function(data)
                 {
                     for(key in data){
@@ -335,8 +413,8 @@
             <select id="env">
                 <option value="0">--请选择--</option>
                 <option value="QA">QA</option>
-                <option value="PRDtest">PRDtest</option>
-                <option value="PRD">PRD</option>
+                <option value="PRE">PRE</option>
+                <option value="PRDTEST">PRDTEST</option>
             </select>
         </div>
         <div class="box">

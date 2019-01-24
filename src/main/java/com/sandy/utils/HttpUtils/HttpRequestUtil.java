@@ -41,7 +41,7 @@ public class HttpRequestUtil {
     static MD5Utils md5Utils = new MD5Utils();
 
     public enum Env{
-        QA("http://api.mall.yzw.cn.qa:8000/open.api"),
+        QA("http://api.mall.yzw.cn.qa:"),
         PRE("http://api.mall.cscec.com.pre:16000"),
         PRDTEST("https://mallapi.yzw.cn:8081");
 
@@ -83,7 +83,13 @@ public class HttpRequestUtil {
         {
             if (enumenv.toString().equals(env))
             {
-                url = enumenv.url;
+                if(env.equals("QA"))
+                {
+                    url = enumenv.url + port + "/open.api";
+                }
+                else{
+                    url = enumenv.url;
+                }
                 break;
             }
 
