@@ -68,6 +68,7 @@
         }
     </style>
     <script>
+
         var formatJson = function(json, options) {
             var reg = null,
                 formatted = '',
@@ -250,9 +251,10 @@
         }(jQuery));
 
         $(function(){
+
             $("textarea[id^='testcases_']").each(function(index){
                 // console.log($(this).text());
-                var formatJsonString = formatJson($(this).text());
+                var formatJsonString = $(this).text()==''?'':formatJson($(this).text());
                 $(this).text(formatJsonString);
             });
         });
@@ -264,12 +266,32 @@
                 selectedmethodlist[i] =$(this).val();
             });
 
-            if($('#env').val() == "--请选择--")
-                alert("请选择运行环境")
-            if($('#port').val() == "--请选择--" && $('#env').val() == "QA")
-                alert("请选择运行环境")
-            if($('#appid').val() == "--请选择--")
-                alert("请选择供应商")
+
+            if($('#env').val() == "0" )
+            {
+                alert("请选择运行环境");
+                return false;
+            }
+
+
+            if($('#port').val() == "0" && $('#env').val() == "QA")
+            {
+                alert("请选择端口");
+                return false;
+
+            }
+
+            if($('#appid').val() == "0")
+            {
+                alert("请选择供应商");
+                return false;
+            }
+
+            if($("input[name='selectedmethod']:checked").length==0){
+                alert("请勾选要运行的API");
+                return false;
+            }
+
 
             $.ajax({
                 url:"/method/action/run",
@@ -301,6 +323,11 @@
 
         function save()
         {
+            if($("input[name='selectedmethod']:checked").length==0){
+                alert("请勾选要保存的API");
+                return false;
+            }
+
             var selectedcaselist = [];
             $("input[name='selectedmethod']:checked").each(function(i){
                 var tmp = {};
@@ -331,6 +358,7 @@
                 }
             });
         }
+
     </script>
 </head>
 <body>
@@ -339,7 +367,7 @@
         <div class="box">
             <label>环境：</label>
             <select id="env">
-                <option selected="selected">--请选择--</option>
+                <option value="0">--请选择--</option>
                 <option value="QA">QA</option>
                 <option value="PRDtest">PRDtest</option>
                 <option value="PRD">PRD</option>
@@ -348,7 +376,7 @@
         <div class="box">
             <label>端口：</label>
             <select id="port">
-                <option selected="selected">--请选择--</option>
+                <option value="0">--请选择--</option>
                 <option value="8000">8000</option>
                 <option value="8001">8001</option>
                 <option value="8003">8003</option>
@@ -358,7 +386,7 @@
         <div class="box">
             <label>供应商：</label>
             <select id="appid">
-                <option selected="selected">--请选择--</option>
+                <option value="0">--请选择--</option>
                 <c:choose>
                     <c:when test="${empty requestScope.apps  || fn:length(requestScope.apps) == 0}">
                         请联系管理员初始化App。

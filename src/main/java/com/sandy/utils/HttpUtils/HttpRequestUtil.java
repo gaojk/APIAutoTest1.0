@@ -84,14 +84,14 @@ public class HttpRequestUtil {
             if (enumenv.toString().equals(env))
             {
                 url = enumenv.url;
+                break;
             }
-            else
-            {
-                 url =  "http://api.mall.yzw.cn.qa:8000/open.api";
-            }
+
         }
 
-        //
+        if(url == null)
+            return ("incorrect request url");
+
         Map map = new HashMap<String,String>();
         map.put("method",httpAPIRequest.getMethod());
         map.put("version",httpAPIRequest.getVersion());
@@ -143,5 +143,6 @@ public class HttpRequestUtil {
         String resp = httpRequestUtil.ExeHttpRequestUtil("QA","8000");
 
         System.out.println(resp);
+
     }
 }
