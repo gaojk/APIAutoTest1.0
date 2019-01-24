@@ -265,7 +265,7 @@
         });
 
         function isJSON(str) {
-            if (typeof str == 'string') {
+            if (typeof str == 'string' && str.length != 0 ) {
                 try {
                     var obj=JSON.parse(str);
                     if(typeof obj == 'object' && obj ){
@@ -291,18 +291,15 @@
 
             var selectedcaselist = [];
             $("input[name='selectedmethod']:checked").each(function(i){
-
-                $("input[name='selectedmethod']:checked").each(function(i){
-                    var tmp = {};
-                    tmp.id=$(this).val();
-                    var param= $('#testcases_'+$(this).val()).val();
-                    tmp.param=param.replace(/[\ \r\n]/g,"");
-                    if(!isJSON(tmp.param)){
-                        $("textarea[id='testcases_${item1.sysno}']").addClass('highLight');
-                        return false;
-                    }
+                var tmp = {};
+                tmp.id=$(this).val();
+                var param= $('#testcases_'+$(this).val()).val();
+                tmp.param=param.replace(/[\ \r\n]/g,"");
+                if(!isJSON(tmp.param)){
+                    $('#testcases_'+$(this).val()).addClass('hightLight');
+                }else{
                     selectedcaselist.push($.base64.encode(JSON.stringify(tmp),'utf-8'));
-                });
+                }
 
             });
             $.ajax({
