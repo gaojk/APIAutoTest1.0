@@ -19,6 +19,8 @@
             background-image:url('/img/background.jpg');
             background-size: cover;
             font-size:13px;
+            position: relative;
+            padding-bottom: 50px;
         }
         a {
             color: white;
@@ -26,6 +28,15 @@
             width:100px;
             text-align: center;
         }
+
+        .bg{
+            background-color: rgba(0,0,0,0.3);
+            border-radius: 5px;
+            box-shadow: 0 6px 10px rgba(0,0,0,0.3);
+            padding: 10px;
+        }
+
+
         .mt20 {
             margin-top: 20px;
         }
@@ -34,7 +45,7 @@
         }
         .input-box{
             position: fixed;
-            right: 100px;
+            right: 5%;
             top: 46%;
             height: auto;
             margin-bottom: 20px;
@@ -70,6 +81,14 @@
             color: red;
             font-weight:bold;
             border:3px solid red !important;
+        }
+        .footer{
+            color: #ffffff;
+            font-size: 14px;
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
         }
     </style>
     <script>
@@ -452,6 +471,16 @@
                 </div>
             </c:when>
             <c:otherwise>
+                <div class="mt20 bg">
+                    <pre>
+     使用说明：
+
+     1. 首次使用需要联系管理员初始化供应商，用例等个人数据，
+
+     2. 勾选所需要运行的API，输入入参，点击保存，点击运行。
+                    </pre>
+
+                </div>
                 <c:forEach items="${requestScope.methods}" var="item1">
                     <div class="box-con mt20 ofh">
 
@@ -490,5 +519,8 @@
         </div>
     </div>
 </form>
+<div class="footer">
+    Any problem, please contact: Sandy.N.Hao@yzw.cn
+</div>
 </body>
 </html>

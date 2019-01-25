@@ -85,9 +85,16 @@
             font-size: 14px;
             border: none;
         }
+        .footer{
+            color: #ffffff;
+            font-size: 14px;
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+        }
     </style>
 </head>
-<body>
 <body>
 <div class="Verticalcenter">
     <p><span>Test Better</span></p>
@@ -107,6 +114,8 @@
         </form>
     </div>
 </div>
-</body>
+<div class="footer">
+    Any problem, please contact: Sandy.N.Hao@yzw.cn
+</div>
 </body>
 </html>
